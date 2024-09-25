@@ -1,0 +1,4 @@
+spring.application.name=portainer-deploy
+spring.data.mongodb.uri=
+spring.data.mongodb.auto-index-creation=true
+portainer.url=
