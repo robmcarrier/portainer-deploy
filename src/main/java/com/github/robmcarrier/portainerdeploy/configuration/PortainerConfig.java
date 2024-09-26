@@ -10,5 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties("portainer")
 public class PortainerConfig {
-  private String url;
+  private String host;
+  private String port;
+  private String username;
+  private String password;
 }

@@ -1,0 +1,45 @@
+<configuration>
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%green(%date) %highlight(%-5level) %yellow([%file:%line]) %blue(: %msg%n)</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <appender name="GELF" class="de.siegmar.logbackgelf.GelfUdpAppender">
+    <graylogHost>${graylog.host}</graylogHost>
+    <graylogPort>12201</graylogPort>
+    <maxChunkSize>508</maxChunkSize>
+    <useCompression>true</useCompression>
+    <encoder class="de.siegmar.logbackgelf.GelfEncoder">
+      <originHost>192.168.1.40</originHost>
+      <includeRawMessage>true</includeRawMessage>
+      <includeMarker>true</includeMarker>
+      <includeMdcData>true</includeMdcData>
+      <includeCallerData>true</includeCallerData>
+      <includeRootCauseData>true</includeRootCauseData>
+      <includeLevelName>true</includeLevelName>
+      <shortPatternLayout class="ch.qos.logback.classic.PatternLayout">
+        <pattern>%m%nopex</pattern>
+      </shortPatternLayout>
+      <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
+        <pattern>%m%n</pattern>
+      </fullPatternLayout>
+      <staticField>app_name:portainer-deploy</staticField>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="GELF" />
+  </root>
+
+  <logger name="graylog" additivity="false">
+    <level value="DEBUG"/>
+    <appender-ref ref="GELF" />
+    <appender-ref ref="STDOUT"/>
+  </logger>
+
+  <springProperty name="graylog.host" source="graylog.host"/>
+
+</configuration>

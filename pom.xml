@@ -15,18 +15,12 @@
   <name>portainer-deploy</name>
   <description>portainer-deploy</description>
   <url>https://github.com/robmcarrier/portainer-deploy</url>
-  <licenses>
-    <license/>
-  </licenses>
   <developers>
-    <developer/>
+    <developer>
+      <name>Robert Carrier</name>
+      <email>robert@robmcarrier.com</email>
+    </developer>
   </developers>
-  <scm>
-    <connection/>
-    <developerConnection/>
-    <tag/>
-    <url/>
-  </scm>
   <properties>
     <java.version>21</java.version>
   </properties>
@@ -42,6 +36,17 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-logging</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>de.siegmar</groupId>
+      <artifactId>logback-gelf</artifactId>
+      <version>3.0.0</version>
     </dependency>
 
     <dependency>
