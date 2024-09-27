@@ -12,7 +12,7 @@
     <maxChunkSize>508</maxChunkSize>
     <useCompression>true</useCompression>
     <encoder class="de.siegmar.logbackgelf.GelfEncoder">
-      <originHost>192.168.1.40</originHost>
+      <originHost>${origin.host}</originHost>
       <includeRawMessage>true</includeRawMessage>
       <includeMarker>true</includeMarker>
       <includeMdcData>true</includeMdcData>
@@ -25,7 +25,7 @@
       <fullPatternLayout class="ch.qos.logback.classic.PatternLayout">
         <pattern>%m%n</pattern>
       </fullPatternLayout>
-      <staticField>app_name:portainer-deploy</staticField>
+      <staticField>app_name:${app.name}</staticField>
     </encoder>
   </appender>
 
@@ -40,6 +40,8 @@
     <appender-ref ref="STDOUT"/>
   </logger>
 
-  <springProperty name="graylog.host" source="graylog.host"/>
-
+  <springProperty scope="context" name="app.name" source="spring.application.name"/>
+  <springProperty scope="context" name="graylog.host" source="graylog.host"/>
+  <springProperty scope="context" name="log.level" source="log.level" defaultValue="INFO"/>
+  <springProperty scope="context" name="origin.host" source="origin.host"/>
 </configuration>
